@@ -1,0 +1,67 @@
+h4 {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+label {
+}
+
+.App {
+	text-align: center;
+}
+.gameContainer {
+	border: solid black;
+	margin-bottom: 0.5vh;
+	margin-left: 2vw;
+	margin-top: 2vh;
+	width: 80%;
+	height: 5vh;
+	display: flex;
+	justify-content: space-evenly;
+}
+.header {
+	width: 100%;
+	height: 15vh;
+	display: flex;
+	justify-content: space-between;
+	border: solid black;
+}
+.body {
+	margin: auto 0;
+}
+.wrapper {
+	border: solid black;
+	margin-top: 5vh;
+	display: flex;
+	justify-content: space-evenly;
+}
+.playerMoneyDisplay {
+	border: solid black;
+	width: 20%;
+	height: 5vh;
+	margin-top: 5vh;
+	margin-left: 3vw;
+}
+.title {
+	width: 60%;
+}
+.placeHolder {
+	width: 20%;
+}
+.manager {
+	border: solid black;
+	width: 20%;
+}
+.gameBody {
+	display: flex;
+	flex-direction: column;
+}
+.leftBody {
+	border: solid black;
+	width: 40%;
+}
+.rightBody {
+	border: solid black;
+	width: 40%;
+	display: flex;
+	flex-direction: column;
+}
