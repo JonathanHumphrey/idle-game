@@ -4,6 +4,9 @@ h4 {
 }
 label {
 }
+hr {
+	width: 85%;
+}
 
 .App {
 	text-align: center;

@@ -6,7 +6,7 @@ export default function GameBody(props) {
     // Purchase function that take the event of the purchase button and assigns the proper name
     const purchase = (event) => {
         let name = event.target.name
-        console.log(props[name].price)
+        console.log(props[name])
         
         if (props[name] !== undefined) {
             if (props[name].price > props.playerMoney){
@@ -29,18 +29,37 @@ export default function GameBody(props) {
         if (props[event.target.name].quantity === 0) {
             alert('ERROR: you must purchase this revenue stream before generating money from it')
         } else {
-            console.log()
+            console.log(props.playerMoney)
             props.setPlayerMoney(props.playerMoney + (props[event.target.name].yield))
         }
         
     }
 
+    const autoGenerate = (moneyEvent) => {
+        props.setPlayerMoney(props.playerMoney + (props.lemonade.yield))
+    } 
 
     const hireManager = (event) => {
-        props[event.target.name].manager = true
-        console.log(props[event.target.name].manager)
         props.setPlayerMoney(props.playerMoney - (props[event.target.name].price * 10))
+       /*  props.setLemonade({
+            ...props.lemonade, 
+            props.lemonade.manager = true
+        }) */
     }
+
+    
+    useEffect(() => {
+        if (props.lemonade.manager) {
+            const interval = setInterval(() => {
+                //generateMoney()
+                props.setPlayerMoney(props.playerMoney + props.lemonade.yield)
+                
+                //props.setPlayerMoney(value)
+                //autoGenerate()
+            }, 1000)
+        }
+    },[props.lemonade.manager])
+    
     
 
     return (
@@ -133,6 +152,8 @@ export default function GameBody(props) {
                 </div>
                 <div className='rightBody'>
                     <h3>Managers</h3>
+                    <hr />
+                    <p>Managers allow you to automate your production at the cost of an increased buy-in</p>
                     <label>Hire A Lemonade Stand Manager
                         <input
                             name='lemonade'
@@ -145,7 +166,7 @@ export default function GameBody(props) {
                         <input
                             name='newspaper'
                             type='button'
-                            value={`$${props.lemonade.price * 10}`}
+                            value={`$${props.newspaper.price * 10}`}
                             onClick={hireManager}
                         />
                     </label>
@@ -153,7 +174,7 @@ export default function GameBody(props) {
                         <input
                             name='carDealer'
                             type='button'
-                            value={`$${props.lemonade.price * 10}`}
+                            value={`$${props.carDealer.price * 10}`}
                             onClick={hireManager}
                         />
                     </label>
@@ -161,7 +182,7 @@ export default function GameBody(props) {
                         <input
                             name='oilRig'
                             type='button'
-                            value={`$${props.lemonade.price * 10}`}
+                            value={`$${props.carDealer.price * 10}`}
                             onClick={hireManager}
                         />
                     </label>

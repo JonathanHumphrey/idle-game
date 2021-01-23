@@ -4,7 +4,7 @@ export default function Header(props) {
     return (
         <div className='header'>
             <div className='playerMoneyDisplay'>
-                <h3>Your Money: ${props.playerMoney.toLocaleString()}</h3>
+                <h3>Your Money: ${props.playerMoney}</h3>
             </div>
             <div className='title'>
                 <h1>Idle Game</h1>
