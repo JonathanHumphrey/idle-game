@@ -37,28 +37,21 @@ export default function GameBody(props) {
 
     const autoGenerate = (moneyEvent) => {
         props.setPlayerMoney(props.playerMoney + (props.lemonade.yield))
+        console.log(props.playerMoney)
     } 
 
     const hireManager = (event) => {
         props.setPlayerMoney(props.playerMoney - (props[event.target.name].price * 10))
-       /*  props.setLemonade({
-            ...props.lemonade, 
-            props.lemonade.manager = true
-        }) */
+        props.setLemonade({...props.lemonade,manager: true})
     }
 
-    
+
     useEffect(() => {
-        if (props.lemonade.manager) {
-            const interval = setInterval(() => {
-                //generateMoney()
-                props.setPlayerMoney(props.playerMoney + props.lemonade.yield)
-                
-                //props.setPlayerMoney(value)
-                //autoGenerate()
-            }, 1000)
-        }
-    },[props.lemonade.manager])
+        const timer = setTimeout(() => {
+          props.lemonade.manager && autoGenerate()
+        }, 1000);
+        return () => clearTimeout(timer);
+      });
     
     
 
