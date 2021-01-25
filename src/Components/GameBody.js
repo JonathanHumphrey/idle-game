@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 
 export default function GameBody(props) {
-    const [moneyEvent, setMoneyEvent] = useState({})
 
     // Purchase function that take the event of the purchase button and assigns the proper name
     const purchase = (event) => {
@@ -26,6 +25,12 @@ export default function GameBody(props) {
 
     // Generates money for the user when this is fired
     const generateMoney = (event) => {
+        console.log(props[event.target.name].cooldown)
+
+        const coolDownTimer = setTimeout(() => {
+            
+        }, props[event.tagert.name].cooldown)
+
         if (props[event.target.name].quantity === 0) {
             alert('ERROR: you must purchase this revenue stream before generating money from it')
         } else {
@@ -33,6 +38,9 @@ export default function GameBody(props) {
             props.setPlayerMoney(props.playerMoney + (props[event.target.name].yield))
         }
         
+    }
+    const fireCoolDown = () => {
+
     }
 
     const autoGenerate = (moneyEvent) => {
@@ -49,7 +57,7 @@ export default function GameBody(props) {
     useEffect(() => {
         const timer = setTimeout(() => {
           props.lemonade.manager && autoGenerate()
-        }, 1000);
+        }, props.lemonade.cooldown);
         return () => clearTimeout(timer);
       });
     

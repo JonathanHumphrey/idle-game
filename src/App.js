@@ -12,28 +12,28 @@ function App() {
     quantity: 0,
     price: 100,
     yield: 10,
-    cooldown: .500,
+    cooldown: 500,
     manager: false
   })
   const [newspaper, setNewspaper] = useState({
     quantity: 0,
     price: 500,
     yield: 50,
-    cooldown: 2.5,
+    cooldown: 2500,
     manager: false
   })
   const [carDealer, setCarDealer] = useState({
     quantity: 0,
     price: 10000,
     yield: 1000,
-    cooldown: 10,
+    cooldown: 10000,
     manager: false
   })
   const [oilRig, setOilRig] = useState({
     quantity: 0,
     price: 1000000,
     yield: 10000,
-    cooldown: 60,
+    cooldown: 60000,
     manager: false
   })
 
