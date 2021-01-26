@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 
 export default function GameBody(props) {
-
+    const [name, setName] = useState('')
     // Purchase function that take the event of the purchase button and assigns the proper name
     const purchase = (event) => {
         let name = event.target.name
@@ -18,6 +18,7 @@ export default function GameBody(props) {
                 else {
                     props[name].quantity += 1
                     props.setPlayerMoney(props.playerMoney - props[name].price)
+                    console.log('here')
                 }
             }
         }
@@ -27,15 +28,12 @@ export default function GameBody(props) {
     const generateMoney = (event) => {
         console.log(props[event.target.name].cooldown)
 
-        const coolDownTimer = setTimeout(() => {
-            
-        }, props[event.tagert.name].cooldown)
+        
 
         if (props[event.target.name].quantity === 0) {
             alert('ERROR: you must purchase this revenue stream before generating money from it')
         } else {
-            console.log(props.playerMoney)
-            props.setPlayerMoney(props.playerMoney + (props[event.target.name].yield))
+            props.setPlayerMoney(props.playerMoney + (props[event.target.name].yield + (props[event.target.name].quantity * props[event.target.name].upgradeFactor)))
         }
         
     }
@@ -43,23 +41,69 @@ export default function GameBody(props) {
 
     }
 
-    const autoGenerate = (moneyEvent) => {
-        props.setPlayerMoney(props.playerMoney + (props.lemonade.yield))
+    const autoGenerateLemonade = () => {
+        props.setPlayerMoney(props.playerMoney + (props.lemonade.yield + (props.lemonade.upgradeFactor * props.lemonade.quantity)))
         console.log(props.playerMoney)
     } 
+    const autoGenerateNewspaper = () => {
+        props.setPlayerMoney(props.playerMoney + (props.newspaper.yield + (props.newspaper.upgradeFactor * props.newspaper.quantity)))
+        
+    } 
+    const autoGenerateCarDealer = () => {
+        props.setPlayerMoney(props.playerMoney + (props.carDealer.yield + (props.carDealer.upgradeFactor * props.carDealer.quantity)))
+        
+    } 
+    const autoGenerateOilRig = () => {
+        props.setPlayerMoney(props.playerMoney + (props.oilRig.yield + (props.oilRig.upgradeFactor * props.oilRig.quantity)))
+        
+    } 
+
 
     const hireManager = (event) => {
-        props.setPlayerMoney(props.playerMoney - (props[event.target.name].price * 10))
-        props.setLemonade({...props.lemonade,manager: true})
+        if (event.target.name === 'lemonade') {
+            props.setPlayerMoney(props.playerMoney - (props.lemonade.price * 10))
+            props.setLemonade({ ...props.lemonade, manager: true })
+        } 
+        else if (event.target.name === 'newspaper') {
+            props.setPlayerMoney(props.playerMoney - (props.newspaper.price * 10))
+            props.setNewspaper({ ...props.newspaper, manager: true })
+        }
+        else if (event.target.name === 'carDealer') {
+            props.setPlayerMoney(props.playerMoney - (props.carDealer.price * 10))
+            props.setCarDealer({ ...props.carDealer, manager: true })
+        }
+        else if (event.target.name === 'oilRig') {
+            props.setPlayerMoney(props.playerMoney - (props.oilRig.price * 10))
+            props.setOilRig({ ...props.oilRig, manager: true })
+        }
+        
     }
 
 
     useEffect(() => {
         const timer = setTimeout(() => {
-          props.lemonade.manager && autoGenerate()
+            props.lemonade.manager && autoGenerateLemonade()
         }, props.lemonade.cooldown);
-        return () => clearTimeout(timer);
-      });
+    });
+
+    useEffect(() => {
+        const timer2 = setTimeout(() => {
+            props.newspaper.manager && autoGenerateNewspaper()
+        }, props.newspaper.cooldown);
+    });
+    useEffect(() => {
+        const timer3 = setTimeout(() => {
+          props.carDealer.manager && autoGenerateCarDealer()
+        }, props.carDealer.cooldown);
+        return () => clearTimeout(timer3);
+    });
+    useEffect(() => {
+        const timer4 = setTimeout(() => {
+          props.oilRig.manager && autoGenerateOilRig()
+        }, props.oilRig.cooldown);
+        return () => clearTimeout(timer4);
+    });
+    
     
     
 
@@ -83,7 +127,7 @@ export default function GameBody(props) {
                                 name='lemonade'
                                 onClick={generateMoney}
                                 type='button'
-                                value={`+ $${props.lemonade.yield}`}
+                                value={`+ $${props.lemonade.yield + (props.lemonade.quantity * props.lemonade.upgradeFactor)}`}
                             />
                         </label>
                     </div>
@@ -103,7 +147,7 @@ export default function GameBody(props) {
                                 name='newspaper'
                                 onClick={generateMoney}
                                 type='button'
-                                value={`+ $${props.newspaper.yield}`}
+                                value={`+ $${props.newspaper.yield+ (props.newspaper.quantity * props.newspaper.upgradeFactor)}`}
                             />
                         </label>
                     </div>
@@ -124,7 +168,7 @@ export default function GameBody(props) {
                                 name='carDealer'
                                 onClick={generateMoney}
                                 type='button'
-                                value={`+ $${props.carDealer.yield}`}
+                                value={`+ $${props.carDealer.yield + (props.carDealer.quantity * props.carDealer.upgradeFactor)}`}
                             />
                         </label>
                     </div>
@@ -145,7 +189,7 @@ export default function GameBody(props) {
                                 name='oilRig'
                                 onClick={generateMoney}
                                 type='button'
-                                value={`+ $${props.oilRig.yield}`}
+                                value={`+ $${props.oilRig.yield + (props.oilRig.quantity * props.oilRig.upgradeFactor)}`}
                             />
                         </label>
                     </div>

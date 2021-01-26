@@ -6,35 +6,38 @@ import Header from './Components/Header'
 import GameBody from './Components/GameBody'
 
 function App() {
-  const [name, setName] = useState('')
   const [playerMoney, setPlayerMoney] = useState(10000)
   const [lemonade, setLemonade] = useState({
     quantity: 0,
     price: 100,
     yield: 10,
-    cooldown: 500,
-    manager: false
+    cooldown: 2000,
+    manager: false, 
+    upgradeFactor: 1
   })
   const [newspaper, setNewspaper] = useState({
     quantity: 0,
     price: 500,
     yield: 50,
     cooldown: 2500,
-    manager: false
+    manager: false, 
+    upgradeFactor: 5
   })
   const [carDealer, setCarDealer] = useState({
     quantity: 0,
     price: 10000,
     yield: 1000,
     cooldown: 10000,
-    manager: false
+    manager: false, 
+    upgradeFactor: 100
   })
   const [oilRig, setOilRig] = useState({
     quantity: 0,
     price: 1000000,
     yield: 10000,
     cooldown: 60000,
-    manager: false
+    manager: false,
+    upgradeFactor: 1000
   })
 
 
@@ -56,8 +59,6 @@ function App() {
           setOilRig={setOilRig}
           playerMoney={playerMoney}
           setPlayerMoney={setPlayerMoney}
-          name={name}
-          setName={setName}
         />
       </div>
     </div>
