@@ -45,6 +45,9 @@ export default function GameBody(props, { setPlayerMoney, playerMoney }) {
 
     }
 
+
+    // Had to hard code these functions
+    // Money and Value variables allow for the += notation to work
     const autoGenerateLemonade = () => {
         console.log('lem')
         let money = props.playerMoney
@@ -72,7 +75,8 @@ export default function GameBody(props, { setPlayerMoney, playerMoney }) {
         
     } 
 
-
+    
+    // charges the user and then flips the bool value in the object to true 
     const hireManager = (event) => {
         if (event.target.name === 'lemonade') {
             props.setPlayerMoney(props.playerMoney - (props.lemonade.price * 10))
@@ -235,7 +239,7 @@ export default function GameBody(props, { setPlayerMoney, playerMoney }) {
                         <input
                             name='carDealer'
                             type='button'
-                            value={`$${props.carDealer.price * 10}`}
+                            value={`$${props.carDealer.price * 10}`}            
                             onClick={hireManager}
                         />
                     </label>
@@ -243,7 +247,7 @@ export default function GameBody(props, { setPlayerMoney, playerMoney }) {
                         <input
                             name='oilRig'
                             type='button'
-                            value={`$${props.carDealer.price * 10}`}
+                            value={`$${props.oilRig.price * 10}`}            
                             onClick={hireManager}
                         />
                     </label>

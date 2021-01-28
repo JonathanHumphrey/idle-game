@@ -6,7 +6,12 @@ import Header from './Components/Header'
 import GameBody from './Components/GameBody'
 
 function App() {
+
+  //Initializes the player's money, default start is $100
   const [playerMoney, setPlayerMoney] = useState(100000)
+  
+  //Listed Here are all the shops available to the user
+  // The upgrade factor allows for linear progression, the more the user buys of one shop, the higher the yield is
   const [lemonade, setLemonade] = useState({
     quantity: 0,
     price: 100,
@@ -37,7 +42,7 @@ function App() {
     yield: 10000,
     cooldown: 30000,
     manager: false,
-    upgradeFactor: 5000
+    upgradeFactor: 50000
   })
 
 
