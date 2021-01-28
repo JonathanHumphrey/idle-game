@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
 
-export default function GameBody(props) {
-    const [name, setName] = useState('')
+export default function GameBody(props, { setPlayerMoney, playerMoney }) {
+
     // Purchase function that take the event of the purchase button and assigns the proper name
     const purchase = (event) => {
         let name = event.target.name
-        console.log(props[name])
+        let quantity = props[name].quantity
+        console.log(quantity)
         
         if (props[name] !== undefined) {
             if (props[name].price > props.playerMoney){
@@ -26,14 +27,17 @@ export default function GameBody(props) {
 
     // Generates money for the user when this is fired
     const generateMoney = (event) => {
-        console.log(props[event.target.name].cooldown)
+        
 
         
 
         if (props[event.target.name].quantity === 0) {
             alert('ERROR: you must purchase this revenue stream before generating money from it')
         } else {
-            props.setPlayerMoney(props.playerMoney + (props[event.target.name].yield + (props[event.target.name].quantity * props[event.target.name].upgradeFactor)))
+            let money = props.playerMoney
+            let val = (props[event.target.name].yield + (props[event.target.name].quantity * props[event.target.name].upgradeFactor))
+            console.log(val)
+            props.setPlayerMoney(money += val)
         }
         
     }
@@ -42,19 +46,29 @@ export default function GameBody(props) {
     }
 
     const autoGenerateLemonade = () => {
-        props.setPlayerMoney(props.playerMoney + (props.lemonade.yield + (props.lemonade.upgradeFactor * props.lemonade.quantity)))
-        console.log(props.playerMoney)
+        console.log('lem')
+        let money = props.playerMoney
+        let value = (props.lemonade.yield + (props.lemonade.upgradeFactor * props.lemonade.quantity))
+        props.setPlayerMoney(money += value)
+        console.log()
     } 
     const autoGenerateNewspaper = () => {
-        props.setPlayerMoney(props.playerMoney + (props.newspaper.yield + (props.newspaper.upgradeFactor * props.newspaper.quantity)))
+        console.log('news')
+        let money = props.playerMoney
+        let value = (props.newspaper.yield + (props.newspaper.upgradeFactor * props.newspaper.quantity))
+        props.setPlayerMoney(money += value)
         
     } 
     const autoGenerateCarDealer = () => {
-        props.setPlayerMoney(props.playerMoney + (props.carDealer.yield + (props.carDealer.upgradeFactor * props.carDealer.quantity)))
+        let money = props.playerMoney
+        let value = (props.carDealer.yield + (props.carDealer.upgradeFactor * props.carDealer.quantity))
+        props.setPlayerMoney(money += value)
         
     } 
     const autoGenerateOilRig = () => {
-        props.setPlayerMoney(props.playerMoney + (props.oilRig.yield + (props.oilRig.upgradeFactor * props.oilRig.quantity)))
+        let money = props.playerMoney
+        let value = (props.oilRig.yield + (props.oilRig.upgradeFactor * props.oilRig.quantity))
+        props.setPlayerMoney(money += value)
         
     } 
 
@@ -84,24 +98,26 @@ export default function GameBody(props) {
         const timer = setTimeout(() => {
             props.lemonade.manager && autoGenerateLemonade()
         }, props.lemonade.cooldown);
+        return () => clearTimeout(timer);
     });
 
     useEffect(() => {
         const timer2 = setTimeout(() => {
             props.newspaper.manager && autoGenerateNewspaper()
         }, props.newspaper.cooldown);
+        return () => clearTimeout(timer2);
     });
     useEffect(() => {
-        const timer3 = setTimeout(() => {
+        const timer = setTimeout(() => {
           props.carDealer.manager && autoGenerateCarDealer()
         }, props.carDealer.cooldown);
-        return () => clearTimeout(timer3);
+        return () => clearTimeout(timer);
     });
     useEffect(() => {
-        const timer4 = setTimeout(() => {
+        const timer = setTimeout(() => {
           props.oilRig.manager && autoGenerateOilRig()
         }, props.oilRig.cooldown);
-        return () => clearTimeout(timer4);
+        return () => clearTimeout(timer);
     });
     
     
